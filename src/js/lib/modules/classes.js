@@ -7,7 +7,6 @@ $.prototype.addClass = function(...classNames) {
         }
         this[i].classList.add(...classNames);
     }
-
     return this;
 };
 
@@ -18,17 +17,16 @@ $.prototype.removeClass = function(...classNames) {
         }
         this[i].classList.remove(...classNames);
     }
-
     return this;
 };
 
-$.prototype.toggleClass = function(className) {
+$.prototype.toggleClass = function(className) { /* тут сможем передавать только один класс */
     for (let i = 0; i < this.length; i++) {
         if (!this[i].classList) {
             continue;
         }
         this[i].classList.toggle(className);
     }
-
     return this;
 };
+

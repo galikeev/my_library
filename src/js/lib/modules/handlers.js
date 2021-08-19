@@ -1,8 +1,8 @@
 import $ from '../core';
 
-$.prototype.on = function(eventName, callback) {
+$.prototype.onEvent = function(eventName, callback) {
     if (!eventName || !callback) {
-        return this;
+        return this; /* возвращаем объект по цепочке */
     }
     for (let i = 0; i < this.length; i++) {
         this[i].addEventListener(eventName, callback);
@@ -10,7 +10,7 @@ $.prototype.on = function(eventName, callback) {
     return this;
 };
 
-$.prototype.off = function(eventName, callback) {
+$.prototype.offEvent = function(eventName, callback) { /* !!! Чтобы удалить обработчик события, коллбэк должен быть оформлен в переменную */
     if (!eventName || !callback) {
         return this;
     }
@@ -20,14 +20,13 @@ $.prototype.off = function(eventName, callback) {
     return this;
 };
 
-$.prototype.click = function(callback) {
+$.prototype.clickEvent = function(callback) {
     for (let i = 0; i < this.length; i++) {
         if (callback) {
             this[i].addEventListener('click', callback);
         } else {
             this[i].click();
         }
-        
     }
     return this;
 };
