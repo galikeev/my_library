@@ -1,15 +1,14 @@
 import './lib/lib';
 import $ from './lib/lib';
 
-$('button').onEvent('click', function() {
-    $('div').eq(1).toggleClass('active');
+$('#first').onEvent('click', () => {
+    $('div').eq(1).fadeToggle(800);
 });
 
-// console.log($('div').eq(2).find('.some'));
-// console.log($('.some').closestEl('.fiwndme').addClass('ggg'));
-console.log($('.findme').siblings());
+$('[data-count="second"]').clickEvent(() => {
+    $('div').eq(2).fadeToggle(800);
+});
 
-
-
-
-
+$('button').eq(2).onEvent('click', () => {
+    $('.w-500').fadeToggle(800);
+});
