@@ -1,14 +1,14 @@
 import $ from '../core';
 
-$.prototype.animateOverTime = function(duration, callback, final) {
-    let timeStart;
+$.prototype.animateOverTime = function(duration, callback, final) { /* техническая функция с аргументами */
+    let timeStart; /* будет ориентир на нее */
 
     function _animateOverTime(time) {
-        if (!timeStart) {
-            timeStart = time;
+        if (!timeStart) { /* если еще нет данных */
+            timeStart = time; /* то присваиваем */
         }
 
-        let timeElapsed = time - timeStart;
+        let timeElapsed = time - timeStart; /* время, которое каждый раз изменяется отнимаем время начала анимации */
         let complection = Math.min(timeElapsed / duration, 1);
 
         callback(complection);
@@ -21,7 +21,6 @@ $.prototype.animateOverTime = function(duration, callback, final) {
             }
         }
     }
-
     return _animateOverTime;
 };
 
@@ -43,7 +42,6 @@ $.prototype.fadeIn = function(duration, display = 'block', final) {
 $.prototype.fadeOut = function(duration, final) {
     for (let i = 0; i < this.length; i++) {
         
-
         const _fadeOut = (complection) => {
             this[i].style.opacity = 1 - complection;
             if (complection === 1) {
