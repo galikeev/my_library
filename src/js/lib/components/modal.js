@@ -1,6 +1,6 @@
 import $ from '../core';
 
-$.prototype.modal = function() {
+$.prototype.modal = function(created) {
     let scroll = calcScroll();
     for (let i = 0; i < this.length; i++) {
         const target = $(this[i]).getAttr('data-target');
@@ -10,28 +10,38 @@ $.prototype.modal = function() {
             document.body.style.marginRight = `${scroll}px`;
             document.body.style.overflow = 'hidden';
         });
-    }
 
-    const closeElements = document.querySelectorAll('[data-close]');
-    closeElements.forEach(elem => {
-        $(elem).clickEvent(() => {
-            $('.modal').fadeOut(500);
-            setTimeout(() => {
-                document.body.style.marginRight = `0px`;
-                document.body.style.overflow = '';
-            }, 500);
+        const closeElements = document.querySelectorAll(`${target} [data-close]`);
+        closeElements.forEach(elem => {
+            $(elem).clickEvent(() => {
+                $(target).fadeOut(300);
+                setTimeout(() => {
+                    document.body.style.marginRight = `0px`;
+                    document.body.style.overflow = '';
+                }, 300);
+                setTimeout(() => {
+                    if (created) {
+                        document.querySelector(target).remove();
+                    }
+                }, 300);
+            });
         });
-    });
-
-    $('.modal').clickEvent(e => {
-        if (e.target.classList.contains('modal')) {
-            $('.modal').fadeOut(500);
-            setTimeout(() => {
-                document.body.style.marginRight = `0px`;
-                document.body.style.overflow = '';
-            }, 500);
-        }
-    });
+    
+        $(target).clickEvent(e => {
+            if (e.target.classList.contains('modal')) {
+                $(target).fadeOut(300);
+                setTimeout(() => {
+                    document.body.style.marginRight = `0px`;
+                    document.body.style.overflow = '';
+                }, 300);
+                setTimeout(() => {
+                    if (created) {
+                        document.querySelector(target).remove();
+                    }
+                }, 300);
+            }
+        });
+    }
 
     function calcScroll() {
         let div = document.createElement('div');
@@ -47,3 +57,54 @@ $.prototype.modal = function() {
 };
 
 $('[data-toggle="modal"]').modal();
+
+$.prototype.createModal = function({text, btns} = {}) {
+    for (let i = 0; i < this.length; i++) {
+        let modal = document.createElement('div');
+        $(modal).addClass('modal');
+        $(modal).setAttr('id', $(this[i]).getAttr('data-target').slice(1));
+
+        // btns = {count: num, settings: [[text, classNames=[], close, callback]]}
+        const buttons = []; /* в массиве будут храниться каждые отдельные кнопки (ноды) */
+        for (let j = 0; j < btns.count; j++) {
+            let [text, className, close, callback] = btns.settings[j];
+            let btn = document.createElement('button');
+            $(btn).addClass('btn', ...className);
+            btn.textContent = text;
+            if (close) {
+                $(btn).setAttr('data-close', 'true');
+            }
+            if (callback && typeof(callback) === 'function') {
+                $(btn).clickEvent(callback);
+            }
+
+            buttons.push(btn);
+        }
+
+        $(modal).html(`
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button class="close" data-close>
+                        <span>&times;</span>
+                    </button>
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            ${text.title}
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        ${text.body} 
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        `);
+
+        modal.querySelector('.modal-footer').append(...buttons);
+        document.body.appendChild(modal);
+        $(this[i]).modal(true);
+        $($(this[i]).getAttr('data-target')).fadeIn(500);
+    }
+};

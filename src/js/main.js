@@ -13,6 +13,8 @@ $('button').eq(2).onEvent('click', () => {
     $('.w-500').fadeToggle(800);
 });
 
+console.log($('div').find('.modal-footer'));
+
 // $('.wrap').html(
 //     `
 //     <div class="dropdown">
@@ -27,3 +29,38 @@ $('button').eq(2).onEvent('click', () => {
 // );
 
 // $('.dropdown-toggle').dropdown();
+
+$('#trigger').clickEvent(() => {
+    $('#trigger').createModal({
+        text: {
+            title: 'Modal title',
+            body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima eos dolorum hic labore asperiores quisquam eaque quaerat culpa minus, repudiandae totam rem molestiae sunt laboriosam cupiditate ullam et impedit. Et?'
+        },
+        btns: {
+            count: 3,
+            settings: [
+                [
+                    'Close',
+                    ['btn-danger', 'mr-10'],
+                    true
+                ],
+                [
+                    'Save changes',
+                    ['btn-success'],
+                    false,
+                    () => {
+                        alert('Данные сохранены');
+                    }
+                ],
+                [
+                    'Another button',
+                    ['btn-warning', 'ml-10'],
+                    false,
+                    () => {
+                        alert('Hello ept');
+                    }
+                ]
+            ]
+        }
+    });
+});
