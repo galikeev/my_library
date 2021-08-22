@@ -13,7 +13,7 @@ $('button').eq(2).onEvent('click', () => {
     $('.w-500').fadeToggle(800);
 });
 
-console.log($('div').find('.modal-footer'));
+// console.log($('div').find('.modal-footer'));
 
 // $('.wrap').html(
 //     `

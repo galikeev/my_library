@@ -86,6 +86,41 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/lib/components/accordion.js":
+/*!********************************************!*\
+  !*** ./src/js/lib/components/accordion.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.accordion = function (headingActive = 'accordion-heading--active', blockActive = 'accordion-block--active', paddings = 40) {
+  for (let i = 0; i < this.length; i++) {
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).clickEvent(() => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).toggleClass(headingActive);
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].nextElementSibling).toggleClass(blockActive)
+      /* .fadeToggle(300) */
+      ;
+
+      if (this[i].classList.contains(headingActive)) {
+        this[i].nextElementSibling.style.maxHeight = this[i].nextElementSibling.scrollHeight + paddings + 'px';
+      } else {
+        this[i].nextElementSibling.style.maxHeight = "0px";
+      }
+      /* можнно обойтись без уловия и двух последних аргументов, если анимацию через fadeToggle */
+
+    });
+  }
+};
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.accordion-heading').accordion();
+
+/***/ }),
+
 /***/ "./src/js/lib/components/dropdown.js":
 /*!*******************************************!*\
   !*** ./src/js/lib/components/dropdown.js ***!
@@ -238,6 +273,30 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createModal = function (
 
 /***/ }),
 
+/***/ "./src/js/lib/components/tabs.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/components/tabs.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.tab = function () {
+  for (let i = 0; i < this.length; i++) {
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).clickEvent(() => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).addClass('tab-item--active').siblings().removeClass('tab-item--active').fadeIn(500).closestEl('.tab').find('.tab-content').removeClass('tab-content--active').eq(Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).index()).addClass('tab-content--active');
+    });
+  }
+};
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-tab-panel] .tab-item').tab();
+
+/***/ }),
+
 /***/ "./src/js/lib/core.js":
 /*!****************************!*\
   !*** ./src/js/lib/core.js ***!
@@ -308,6 +367,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_effects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/effects */ "./src/js/lib/modules/effects.js");
 /* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/lib/components/dropdown.js");
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
+/* harmony import */ var _components_tabs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tabs */ "./src/js/lib/components/tabs.js");
+/* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/accordion */ "./src/js/lib/components/accordion.js");
+
+
 
 
 
@@ -830,8 +893,8 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-count="second"]'
 });
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('button').eq(2).onEvent('click', () => {
   Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('.w-500').fadeToggle(800);
-});
-console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('div').find('.modal-footer')); // $('.wrap').html(
+}); // console.log($('div').find('.modal-footer'));
+// $('.wrap').html(
 //     `
 //     <div class="dropdown">
 //         <button class="btn btn-primary dropdown-toggle" id="droddownMenuButton">Dropdown button</button>
