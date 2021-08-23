@@ -72,3 +72,6 @@ $('#example-carousel').createCarousel({
         {url: 'https://cdn.pixabay.com/photo/2016/11/29/09/42/camera-1868773_1280.jpg', name: 'photo2'}
     ]
 }).carousel();
+
+$().get('https://jsonplaceholder.typicode.com/todos/1')
+    .then(res => console.log(res));
