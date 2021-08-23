@@ -71,7 +71,7 @@ $.prototype.carousel = function() {
     }
 };
 
-// $('.carousel').carousel();
+$('.carousel').carousel();
 
 $.prototype.createCarousel = function (sliderSet) {
     for (let i = 0; i < this.length; i++) {
