@@ -64,3 +64,11 @@ $('#trigger').clickEvent(() => {
         }
     });
 });
+
+$('#example-carousel').createCarousel({
+    slides: [
+        {url: 'https://www.ejin.ru/wp-content/uploads/2017/09/20-280.jpg', name: 'photo'},
+        {url: 'https://cdn.hipwallpaper.com/i/89/26/BMs1eS.jpg', name: 'photo1'},
+        {url: 'https://cdn.pixabay.com/photo/2016/11/29/09/42/camera-1868773_1280.jpg', name: 'photo2'}
+    ]
+}).carousel();

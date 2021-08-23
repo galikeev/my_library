@@ -203,9 +203,43 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.carousel = function () {
       Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dots[slideIndex]).addClass('active');
     });
   }
-};
+}; // $('.carousel').carousel();
 
-Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.carousel').carousel();
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createCarousel = function (sliderSet) {
+  for (let i = 0; i < this.length; i++) {
+    const sliderCount = sliderSet.slides.length;
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).html(`
+            <ol class="carousel-indicators"></ol>
+            <div class="carousel-inner">
+                <div class="carousel-slides">
+                    
+                </div>
+            </div>
+            <a href="#" class="carousel-prev" data-slide="prev">
+                <span class="carousel-prev-icon">&lt;</span>
+            </a>
+            <a href="#" class="carousel-next" data-slide="next">
+                <span class="carousel-prev-icon">&gt;</span>
+            </a>
+            `);
+
+    for (let j = 0; j < sliderCount; j++) {
+      const dotsItem = document.createElement('li');
+      const slideItem = document.createElement('div');
+      const slideImage = document.createElement('img');
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(dotsItem).setAttr('data-slide-to', `${j}`);
+      this[i].querySelector('.carousel-indicators').appendChild(dotsItem);
+      this[i].querySelector('.carousel-slides').appendChild(slideItem);
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(slideItem).addClass('carousel-item');
+      slideItem.appendChild(slideImage);
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(slideImage).setAttr('src', sliderSet.slides[j]['name']);
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(slideImage).setAttr('src', sliderSet.slides[j]['url']);
+    }
+  }
+
+  return this;
+};
 
 /***/ }),
 
@@ -1014,6 +1048,18 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#trigger').clickEvent(
     }
   });
 });
+Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#example-carousel').createCarousel({
+  slides: [{
+    url: 'https://www.ejin.ru/wp-content/uploads/2017/09/20-280.jpg',
+    name: 'photo'
+  }, {
+    url: 'https://cdn.hipwallpaper.com/i/89/26/BMs1eS.jpg',
+    name: 'photo1'
+  }, {
+    url: 'https://cdn.pixabay.com/photo/2016/11/29/09/42/camera-1868773_1280.jpg',
+    name: 'photo2'
+  }]
+}).carousel();
 
 /***/ })
 
